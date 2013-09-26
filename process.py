@@ -1,4 +1,4 @@
-import nltk
+from nltk import *
 
 from sqlalchemy import *
 from sqlalchemy.orm import (
@@ -19,8 +19,8 @@ def report(text):
 
 def genhist(text):
     _tokens = nltk.word_tokenize(text)
-    hist = nltk.FreqDist(word.lower() for word in _tokens)
-    return hist
+    dist = nltk.FreqDist(word.lower() for word in _tokens)
+    return dist.items()
 
 def main():
     print "Application Starting."
@@ -35,11 +35,12 @@ def main():
     Base.metadata.create_all(bind=engine)
     
     report("Pulling Constitution Text From Database")
-    constitutions = DBSession.query(Constitutions).all()
+    constitutions = DBSession.query(Constitution).all()
+    report("Working on {0} Countries".format(len(constitutions)))
     for constitution in constitutions:
-        report("Generating Word Histogram for '{0}'".format(constitution.country)
+        report("Generating Word Histogram for '{0}'".format(constitution.country))
         words = genhist(constitution.text)
-        for _word in words():
+        for _word in words:
             w,f = _word
             word = Word(constitution.id,w,f)
             DBSession.add(word)

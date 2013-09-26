@@ -46,12 +46,11 @@ class Constitution(Base):
     #    return hist
 
 class Word(Base):
-    __table__ = 'words'
+    __tablename__ = 'words'
     id = Column(Integer, primary_key=True, index=True)
     constid = Column(Integer, ForeignKey('constitutions.id'))
-    # constitution = relation('Constitution', backref='constitutions')
     word = Column(Unicode(128), index=True)
-    frequency = Column(Integer)
+    frequency = Column(Integer, index=True)
 
     def __init__(self,constid,word,frequency):
         self.constid = constid
