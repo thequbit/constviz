@@ -21,10 +21,10 @@ def main():
     report("Loading Constitutions into the Database.")
     for const in constitutions:
         (info,html,text) = const
-        constitution = Constitution(country=info.country,
-                                    webid=info.id,
-                                    title=info.title,
-                                    year_enacted=info.year_enacted,
+        constitution = Constitution(country=info['country'],
+                                    webid=info['id'],
+                                    title=info['title'],
+                                    year_enacted=info['year_enacted'],
                                     html=html,
                                     text=text,
                                    )
