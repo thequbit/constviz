@@ -25,7 +25,12 @@ Then just run runme.py, and after a little bit of time (there is lots of output 
 you will get a constitutions sqlite3 database within the same folder as the git repo.
     
     > python runme.py
-  
+
+
+##Ugh, do I have to run this myself!?##
+
+Nope!  Checkout constitutions.sqlite - it's the full list as of 9/25/2013 of all of the constitutions with their full
+html, text, and meta data.
   
 ##That's it!?##
 
