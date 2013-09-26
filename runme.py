@@ -6,6 +6,8 @@ from sqlalchemy.orm import (
     )
 from sqlalchemy.ext.declarative import declarative_base
 
+import datetime
+
 engine = create_engine('sqlite:///constitutions.sqlite', echo=True)
 Session = sessionmaker(bind=engine)
 DBSession = Session()
