@@ -24,7 +24,7 @@ Base = declarative_base()
 
 class Constitution(Base):
     __tablename__ = 'constitutions'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     country = Column(Unicode(64), index=True)
     webid = Column(Unicode(64))
     title = Column(Unicode(64))
@@ -40,8 +40,22 @@ class Constitution(Base):
         self.html = html
         self.text = text
 
-    def gethist(self):
-        _tokens = nltk.word_tokenize(self.text)
-        hist = nltk.FreqDist(word.lower() for word in _tokens)
-        return hist
+    #def genhist(self):
+    #    _tokens = nltk.word_tokenize(self.text)
+    #    hist = nltk.FreqDist(word.lower() for word in _tokens)
+    #    return hist
 
+class Word(Base):
+    __table__ = 'words'
+    id = Column(Integer, primary_key=True, index=True)
+    constid = Column(Integer, ForeignKey('constitutions.id'))
+    # constitution = relation('Constitution', backref='constitutions')
+    word = Column(Unicode(128), index=True)
+    frequency = Column(Integer)
+
+    def __init__(self,constid,word,frequency):
+        self.constid = constid
+        self.word = word
+        self.frequency = frequency
+
+    
