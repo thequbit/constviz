@@ -19,6 +19,7 @@ All you need to do is run the runme.py file, after installing the dependencies:
     > pip install BeautifulSoup4
     > pip install nltk
     > pip install sqlalchemy
+    > pip install zope.sqlalchemy
     
 Then just run runme.py, and after a little bit of time (there is lots of output so you will know if its still working)
 you will get a constitutions sqlite3 database within the same folder as the git repo.
