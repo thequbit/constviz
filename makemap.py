@@ -1,3 +1,12 @@
+
+#
+# This file based off of the howto here:
+# 
+# http://www.alexschultz.co.uk/weblog/2010/07/creating-country-level-heatmaps-in-python.html
+#
+# Thanks Alex Schultz!!!
+#
+
 import sqlite3
 from bs4 import BeautifulSoup
 
