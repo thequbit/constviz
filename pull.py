@@ -65,11 +65,12 @@ def getconstitutions(idsurl="https://www.constituteproject.org/service/constitut
 def genhist(text):
     # remove all punctuation before tokenizing
     badwords = ['.',',','/','\\',':',';',"'",'"','[',']','{','}','(',')','!','`','~']
-    for badword in badwords
+    for badword in badwords:
         text = text.replace(badword,'')
     _tokens = nltk.word_tokenize(text)
+    wordcount = len(_tokens)
     dist = nltk.FreqDist(word.lower() for word in _tokens)
-    return dist.items()
+    return (dist.items(),wordcount)
 
 def main():
     print "Application Starting."
@@ -87,6 +88,7 @@ def main():
                                                   title TEXT,
                                                   webid TEXT,
                                                   year_enacted INTEGER,
+                                                  wordcount,
                                                   html TEXT,
                                                   planetext TEXT)"""
                    )
@@ -99,16 +101,17 @@ def main():
                    )
         for constitution in constitutions:
             country,webid,title,year_enacted,html,text = constitution
-            cur.execute('INSERT INTO constitutions VALUES(?,?,?,?,?,?)',
+            words,wordcount = genhist(text)
+            cur.execute('INSERT INTO constitutions VALUES(?,?,?,?,?,?,?)',
                         (country,
                         title,
                         webid,
                         year_enacted,
+                        wordcount,
                         html,
                         text)
                        )
             report("Generating Word Histogram")
-            words = genhist(text)
             report("Saving Word Histogram to Database")
             for word in words:
                 w,f = word
