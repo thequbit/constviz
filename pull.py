@@ -88,7 +88,7 @@ def main():
                    )
         cur.execute('DROP TABLE IF EXISTS words')
         cur.execute("""CREATE TABLE words(
-                                          country TEXT,
+                                          webid TEXT,
                                           word TEXT,
                                           frequency INTEGER)"""
                    )
@@ -107,7 +107,7 @@ def main():
             report("Saving Word Histogram to Database")
             for word in words:
                 w,f = word
-                cur.execute('INSERT INTO words VALUES(?,?,?)',(country,w,f))
+                cur.execute('INSERT INTO words VALUES(?,?,?)',(webid,w,f))
             report("Successfully Processed '{0}'".format(country))
     con.close()
 
