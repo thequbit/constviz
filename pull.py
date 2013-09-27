@@ -5,6 +5,7 @@ import json
 import datetime
 import nltk
 import re
+import csv
 
 from downloadpage import downloadpage
 
@@ -75,6 +76,11 @@ def genhist(text):
 def main():
     print "Application Starting."
 
+    reader = csv.reader(open('countrymapping.csv'), delimiter=",")
+    countrycodes = {}
+    for row in reader:
+        countrycodes[row[0]] = row[1]
+
     dbfile = 'constitutions.sqlite'
     con = sqlite3.connect(dbfile)
     
@@ -85,6 +91,7 @@ def main():
         cur.execute('DROP TABLE IF EXISTS constitutions')
         cur.execute("""CREATE TABLE constitutions( 
                                                   country TEXT,
+                                                  countrycode TEXT,
                                                   title TEXT,
                                                   webid TEXT,
                                                   year_enacted INTEGER,
@@ -101,15 +108,26 @@ def main():
                    )
         for constitution in constitutions:
             country,webid,title,year_enacted,html,text = constitution
+
+            countrycode = ""
+            try:
+                name = re.sub(' +',' ',country.replace('_',' ')).lower()
+                countrycode = countrycodes[name]
+                report("Decoded country code as '{0}'".format(countrycode))
+            except:
+                report("!! Unable to decode country name, no country code added !!")
+
             words,wordcount = genhist(text)
-            cur.execute('INSERT INTO constitutions VALUES(?,?,?,?,?,?,?)',
+
+            cur.execute('INSERT INTO constitutions VALUES(?,?,?,?,?,?,?,?)',
                         (country,
-                        title,
-                        webid,
-                        year_enacted,
-                        wordcount,
-                        html,
-                        text)
+                         countrycode, 
+                         title,
+                         webid,
+                         year_enacted,
+                         wordcount,
+                         html,
+                         text)
                        )
             report("Generating Word Histogram")
             report("Saving Word Histogram to Database")
