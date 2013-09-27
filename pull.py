@@ -63,6 +63,10 @@ def getconstitutions(idsurl="https://www.constituteproject.org/service/constitut
     return constitutions
 
 def genhist(text):
+    # remove all punctuation before tokenizing
+    badwords = ['.',',','/','\\',':',';',"'",'"','[',']','{','}','(',')','!','`','~']
+    for badword in badwords
+        text = text.replace(badword,'')
     _tokens = nltk.word_tokenize(text)
     dist = nltk.FreqDist(word.lower() for word in _tokens)
     return dist.items()
@@ -88,6 +92,7 @@ def main():
                    )
         cur.execute('DROP TABLE IF EXISTS words')
         cur.execute("""CREATE TABLE words(
+                                          country TEXT,
                                           webid TEXT,
                                           word TEXT,
                                           frequency INTEGER)"""
@@ -96,8 +101,8 @@ def main():
             country,webid,title,year_enacted,html,text = constitution
             cur.execute('INSERT INTO constitutions VALUES(?,?,?,?,?,?)',
                         (country,
-                        webid,
                         title,
+                        webid,
                         year_enacted,
                         html,
                         text)
@@ -107,8 +112,10 @@ def main():
             report("Saving Word Histogram to Database")
             for word in words:
                 w,f = word
-                cur.execute('INSERT INTO words VALUES(?,?,?)',(webid,w,f))
-            report("Successfully Processed '{0}'".format(country))
+                # don't save the word if it isn't at least 4 chars long
+                if len(w) > 3:
+                    cur.execute('INSERT INTO words VALUES(?,?,?,?)',(country,webid,w,f))
+            report("Successfully Processed {0} words".format(len(words)))
     con.close()
 
     report("{0} Countries Processed Successfully".format(len(constitutions)))
