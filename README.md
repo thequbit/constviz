@@ -14,34 +14,24 @@ text into a sqlite3 database.
 
 ##How do I use this!?##
 
-All you need to do is run the runme.py file, after installing the dependencies:
+First, install the dependencies:
 
     > pip install BeautifulSoup4
     > pip install nltk
-    > pip install sqlalchemy
+    > pip install sqlite3
     
-I originally used just straight-up sqlalchemy for this project, but had some real trouble with it ... so on the 
-recommentation of the very awesome [decause](https://github.com/decause) I went to a [knowledge](https://github.com/FOSSRIT/knowledge) interface.
-To install knowledge to use it, do the following:
+Next, run the pull.py file to pull down the country list, then the constitutions, convert them from html to plain text
+then use nltk to produce tokens, and then do a frequency distrobution (histogram) on those words.
 
-    > git clone https://github.com/FOSSRIT/knowledge.git
-    > cd knowledge
-    > python setup.py install
-    
-Then just run runme.py, and after a little bit of time (there is lots of output so you will know if its still working)
-you will get a constitutions sqlite3 database within the same folder as the git repo.
-    
-    > python runme.py
+    > python pull.py
+
+The output is a rather large sqlite3 database that holds constitution meta data, html, plain text, and word histograms
 
 
 ##Ugh, do I have to run this myself!?##
 
-Nope!  Checkout constitutions.sqlite - it's the full list as of 9/25/2013 of all of the constitutions with their full
-html, text, and meta data.
-  
-##That's it!?##
-
-oh calm down.  More to come on interfacing with nltk data.
+Nope!  Checkout constitutions.sqlite - it's the full list as of 9/25/2013 of all of the constitutions with their meta
+data full html, full text, and word histograms.
 
     
 ##What's next!?##
