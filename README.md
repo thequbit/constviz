@@ -30,7 +30,22 @@ The output is a rather large sqlite3 database that holds constitution meta data,
 If you are interested in actually using this file, you should install sqlite3 (in ubuntu below):
 
     > sudo apt-get install sqlite3
+
+
+##Ugh, do I have to run this myself!?##
+
+Nope!  Checkout constitutions.sqlite - it's the full list as of 9/25/2013 of all of the constitutions with their meta
+data full html, full text, and word histograms.
+
     
+##What's next!?##
+
+A pretty web interface ... maybe flask?  For now, this is all you get ... pop open your favorite sqlite3 browser and
+start banging out query's!
+
+
+##Some Fun SQL Queries##
+
 You can then do fun queries like:
 
     > sqlite3 constitutions.sqlite
@@ -39,11 +54,16 @@ You can then do fun queries like:
     Enter SQL statements terminated with a ";"
     sqlite>
     
+####Counts####
+    
     sqlite> select count(webid) from constitutions;
     177
     
     sqlite> select count(distinct webid) from constitutions;
     177
+    
+    
+####First 20 Words in the Histogram Ordered by Frequency####
     
     sqlite> select word,frequency from words where lower(country) = "united_states_of_america" order by frequency desc limit 20;
     shall|306
@@ -91,17 +111,29 @@ You can then do fun queries like:
     sqlite>
 
 
-    
+####Number of Words in the Constitution####
 
+    sqlite> select wordcount, country from constitutions order by wordcount desc limit 20;
+    96207|India
+    63099|Malaysia
+    61234|Nigeria
+    55857|Pakistan
+    55775|Sri_Lanka
+    54660|Brazil
+    53805|Ecuador
+    53053|Papua_New_Guinea
+    52511|Ghana
+    52478|Zimbabwe
+    49398|Uganda
+    47208|Saint_Kitts_and_Nevis
+    46493|Swaziland
+    45937|South_Africa
+    45829|Colombia
+    44103|Mexico
+    43973|Thailand
+    43871|Kenya
+    43666|Sierra_Leone
+    43275|Austria
 
-
-##Ugh, do I have to run this myself!?##
-
-Nope!  Checkout constitutions.sqlite - it's the full list as of 9/25/2013 of all of the constitutions with their meta
-data full html, full text, and word histograms.
-
-    
-##What's next!?##
-
-A pretty web interface ... maybe flask?  For now, this is all you get ... pop open your favorite sqlite3 browser and start
-banging out query's!
+    sqlite> select wordcount, country from constitutions where lower(country) = "united_states_of_america";
+    7636|United_States_of_America
