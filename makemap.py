@@ -1,4 +1,3 @@
-
 #
 # This file based off of the howto here:
 # 
@@ -45,7 +44,10 @@ def main():
 
     path_style = "fill-opacity:1;stroke:#ffffff;stroke-width:0.99986994;stroke-miterlimit:3.97446823;stroke-dasharray:none;stroke-opacity:1;fill:"
 
-    stepsize = (maxval - minval) / 9
+    stepsize = len(worddict) / 9
+    for i in range(1,8):
+        val = worddict[stepsize*i]
+        stepsize[i-1] = val
 
     # replace the style with the color fill you want
     for p in paths:
@@ -56,21 +58,21 @@ def main():
             except:
                 continue
  
-            if count > (stepsize * 8):
+            if count > stepsize[7]:
                 color_class = 8
-            elif count > (stepsize * 7):
+            elif count > stepsize[6]:
                 color_class = 7
-            elif count > (stepsize * 6):
+            elif count > stepsize[5]:
                 color_class = 6
-            elif count > (stepsize * 5):
+            elif count > stepsize[4]:
                 color_class = 5
-            elif count > (stepsize * 4):
+            elif count > stepsize[3]:
                 color_class = 4
-            elif count > (stepsize * 3):
+            elif count > stepsize[2]:
                 color_class = 3 
-            elif count > (stepsize * 2):
+            elif count > stepsize[1]:
                 color_class = 2
-            elif count > (stepsize * 1):
+            elif count > stepsize[0]:
                 color_class = 1
             else:
                 color_class = 0
