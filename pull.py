@@ -65,7 +65,7 @@ def getconstitutions(idsurl="https://www.constituteproject.org/service/constitut
 def genhist(text):
     # remove all punctuation before tokenizing
     badwords = ['.',',','/','\\',':',';',"'",'"','[',']','{','}','(',')','!','`','~']
-    for badword in badwords
+    for badword in badwords:
         text = text.replace(badword,'')
     _tokens = nltk.word_tokenize(text)
     dist = nltk.FreqDist(word.lower() for word in _tokens)
