@@ -113,9 +113,9 @@ def main():
             try:
                 name = re.sub(' +',' ',country.replace('_',' ')).lower()
                 countrycode = countrycodes[name]
-                report("Decoded country code as '{0}'".format(countrycode))
+                report("Decoded '{0}' to '{1}', and got '{2}'".format(country,name,countrycode))
             except:
-                report("!! Unable to decode country name, no country code added !!")
+                report("!!! Decoded '{0}' to '{1}', but could not find match!".format(country,name))
 
             words,wordcount = genhist(text)
 
