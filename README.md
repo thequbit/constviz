@@ -3,9 +3,7 @@ constviz
 
 Visualizations and Statistics generated from the worlds constitutions.
 
-( an image is loading here ... be patient )
-
-![Country Heat Map by Word Count](https://rawgithub.com/thequbit/constviz/master/wordcount.svg)
+![Country Heat Map by Word Count](https://rawgithub.com/thequbit/constviz/master/wordcount.png)
 
 ^ A Country Level Heat Map by Word Count Within Their Constitution
 
