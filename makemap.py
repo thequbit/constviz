@@ -8,6 +8,7 @@
 
 import sqlite3
 from bs4 import BeautifulSoup
+import pprint
 
 def main():
 
@@ -56,6 +57,9 @@ def main():
     for i in range(1,9):
         #print "Step {0} = {1}".format(i,steps[step*i])
         stepsize.append(steps[step*i])
+
+    print "Steps:"
+    pprint(stepsize)
 
     # replace the style with the color fill you want
     for p in paths:
